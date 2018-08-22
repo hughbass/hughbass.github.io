@@ -21,7 +21,7 @@
 	
 	function GetQuote() {
 
-		var timeNow = (new Date).toTimeString().slice(0, 5);
+		var timeNow = (new Date).toLocaleTimeString().slice(0, 5);
 
 		for (var i = 0; i < quotes.length; i++) {
 			if (quotes[i].hhmm === timeNow) {
