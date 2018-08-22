@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<script src="times.js"></script>
+	
+	<title></title>
+	<style>
+		body { margin: 0; width: 100%; height: 100%;}
+		blockquote {margin: 30px; font-family: Georgia, Times, Times New Roman, serif; font-size: 100px; color: silver; line-height: 1.2;}
+		footer {font-size: 2em; margin: 0 30px; font-style: italic; text-align: right; font-weight: bold; color: gray;}
+		b { color: black; white-space: nowrap;}
+	</style>
+</head>
+<body>
+
+<blockquote></blockquote>
+<footer></footer>
+	
+<script>
+	
+	function GetQuote() {
+
+		var timeNow = (new Date).toTimeString().slice(0, 5);
+
+		for (var i = 0; i < quotes.length; i++) {
+			if (quotes[i].hhmm === timeNow) {
+
+				var regex = new RegExp('(' + quotes[i].time +')', 'gi');
+				var quote = quotes[i].quote.replace(regex, '<b>$1</b>');
+
+				var blockquote = document.getElementsByTagName('blockquote')[0];
+				blockquote.innerHTML = quote;
+				blockquote.style.fontSize = '100px';
+
+				document
+					.getElementsByTagName('footer')[0]
+					.innerHTML = '— ' + quotes[i].book + ', ' + quotes[i].author;
+
+				while (window.innerHeight < document.getElementsByTagName('body')[0].clientHeight) {
+
+					var fontSize = window.getComputedStyle(blockquote, null).getPropertyValue('font-size');
+					blockquote.style.fontSize = parseFloat(fontSize) - 1 + 'px';
+
+					if (fontSize < 100)
+						break;
+				}
+
+				break;
+			}
+		}
+	}
+
+	setInterval(GetQuote, 31 * 1000);
+	GetQuote();
+
+</script>
+
+</body>
+</html>
